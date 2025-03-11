@@ -1,7 +1,12 @@
 package br.edu.cefsa.faculdade.automato_rgcpf.controller;
 
 import br.edu.cefsa.faculdade.automato_rgcpf.service.ValidadorService;
+
+import java.util.Collections;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -12,8 +17,11 @@ public class ValidacaoController {
     private ValidadorService validadorService;
 
     @PostMapping
-    public String validarDocumento(@RequestParam String documento) {
+    public ResponseEntity<Map<String, String>> validarDocumento(@RequestParam String documento) {
         boolean valido = validadorService.validar(documento);
-        return valido ? "Documento válido!" : "Documento inválido!";
+        String mensagem = valido ? "✅ Documento válido!" : "❌ Documento inválido!";
+        
+        Map<String, String> resposta = Collections.singletonMap("mensagem", mensagem);
+        return ResponseEntity.ok(resposta);
     }
 }

@@ -20,7 +20,7 @@ class ValidacaoServiceTest {
 
     @Test
     void testRGValido() {
-        assertTrue(service.validar("123456789"));
+        assertTrue(service.validar("56576701x"));
     }
 
     @Test
